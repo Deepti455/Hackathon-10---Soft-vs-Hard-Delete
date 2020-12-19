@@ -17,8 +17,8 @@ app.get("/students", async (req, res) => {
 // Add student to database
 app.post("/students", async (req, res) => {
   // write your codes here
-  const body = req.body;
-  const newStudent = Student(body);
+  const reqBody = req.body;
+  const newStudent = Student(reqBody);
   await newStudent.save();
   res.send(newStudent);
 });
@@ -27,12 +27,12 @@ app.post("/students", async (req, res) => {
 app.get("/students/:id", async (req, res) => {
   // write your codes here
   try {
-    const result = await Student.findOne({
+    const data = await Student.findOne({
       _id: req.params.id,
       isDeleted: false,
     });
-    if (result != null && result != undefined) {
-      res.send(result);
+    if (data != null && data != undefined) {
+      res.send(data);
     } else {
       res.sendStatus(404);
     }
